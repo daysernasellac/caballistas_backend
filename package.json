@@ -1,0 +1,39 @@
+{
+  "name": "caballistas_backend",
+  "version": "1.0.0",
+  "description": "Proyecto productivo integrador 2020 - Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexiu5/caballistas_backend.git"
+  },
+  "keywords": [
+    "politecnico",
+    "colombiano",
+    "jaime",
+    "izasa",
+    "cadavid"
+  ],
+  "dependencies": {
+    "bcrypt": "latest",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "~1.4.3",
+    "express": "~4.15.5",
+    "jsonwebtoken": "^8.1.1",
+    "mongoose": "^5.0.3",
+    "lodash": "^4.17.11",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "serve-favicon": "~2.4.5"
+  },
+  "author": "Karen Dahiana Chiquito Serna & company",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexiu5/caballistas_backend/issues"
+  },
+  "homepage": "https://github.com/Alexiu5/caballistas_backend#readme"
+}
