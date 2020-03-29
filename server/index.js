@@ -22,8 +22,9 @@ module.exports = function() {
         server.use(bodyParser.urlencoded({extended: false}));
         server.use(cookieParser());
         server.use(logger('dev'));
-        server.use(passport.initialize());
-        require('./config/passport')(passport); // check if passport is for you
+        //check if passport is for you
+        // server.use(passport.initialize());
+        // require('./config/passport')(passport); 
 
         // set up routes
         routes.init(server);
