@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('../swagger')
 
 module.exports = function() {
     let server = express(),
@@ -22,6 +24,7 @@ module.exports = function() {
         server.use(bodyParser.urlencoded({extended: false}));
         server.use(cookieParser());
         server.use(logger('dev'));
+        server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
         //check if passport is for you
         // server.use(passport.initialize());
         // require('./config/passport')(passport); 
