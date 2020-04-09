@@ -2,7 +2,10 @@
 const { Pool } = require('pg');
 const config = require('../configs/index'); 
 
-const dbPool = new Pool(config.database);
-console.log(dbPool);
+const getPool = function() {
+    return new Pool(config.database);
+}
 
-exports.module = dbPool;
+module.exports = {
+    getPool
+}

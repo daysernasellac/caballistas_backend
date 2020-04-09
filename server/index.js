@@ -26,12 +26,6 @@ module.exports = function() {
         server.use(logger('dev'));
         server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-        if(require('./database')) {
-            console.log('database up and running');
-        }else {
-            console.error('database down and crying');
-        }
-
         // set up routes
         routes.init(server);
     }
