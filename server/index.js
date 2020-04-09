@@ -12,7 +12,7 @@ module.exports = function() {
         create,
         start;
 
-    create = function(config, db) {
+    create = function(config) {
         let routes = require('./routes');
         // server settings
         server.set('env', config.env);
@@ -25,9 +25,12 @@ module.exports = function() {
         server.use(cookieParser());
         server.use(logger('dev'));
         server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-        //check if passport is for you
-        // server.use(passport.initialize());
-        // require('./config/passport')(passport); 
+
+        if(require('./database')) {
+            console.log('database up and running');
+        }else {
+            console.error('database down and crying');
+        }
 
         // set up routes
         routes.init(server);

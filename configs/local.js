@@ -1,8 +1,15 @@
 'use-strict';
 
 let localConfig = {
-    hostname: 'localhost',
-    port: 3000
+    port:  process.env.PORT || 3000,
+    hostname: process.env.HOSTNAME || 'localhost',
+    database: {
+        user: '',
+        host: '',
+        password: '',
+        database: '',
+        port:''
+    }
 };
 
 module.exports = localConfig;

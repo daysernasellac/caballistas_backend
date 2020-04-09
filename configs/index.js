@@ -1,7 +1,5 @@
 'use-strict';
-let defaultConfig = {
-    port:  process.env.PORT || 3000,
-    hostname: process.env.HOSTNAME || 'localhost'
-}
+const env = process.env.NODE_ENV || 'local';
+const defaultConfig = require(`./${env}`);
 
 module.exports = defaultConfig;
