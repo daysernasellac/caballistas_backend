@@ -1,4 +1,4 @@
-'use-strict';
+"use strict";;
 
 let localConfig = {
     port:  process.env.PORT || 3000,

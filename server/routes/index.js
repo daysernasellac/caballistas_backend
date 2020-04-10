@@ -1,6 +1,6 @@
-'use-strict'
+"use strict";
 
-const apiRoutes = require('./apis');
+const apiRoutes = require('./api');
 
 function init(server) {
     server.get('*', function(req, res, next) {

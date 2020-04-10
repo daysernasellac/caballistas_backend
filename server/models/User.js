@@ -1,4 +1,4 @@
-'use-strict';
+"use strict";;
 class User { 
     constructor({email, password, role}) {
         this.email = email;

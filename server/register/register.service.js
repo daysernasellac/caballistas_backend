@@ -1,6 +1,6 @@
-'use-strict';
+"use strict";;
 const express = require('express');
-const User = require('../../models/User');
+const User = require('../models/User');
 
 const httpMessages =  {
     onValidationError: {
