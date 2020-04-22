@@ -1,10 +1,9 @@
 'use-strict';
-const express = require('express');
 const pool = require('../../../database').getPool();
 
 // get all departaments
-function getDepartamentos(request, response) {
-  pool.query('SELECT * FROM TIPO_DEPARTAMENTO', (err, res) => {
+function getMunicipios(request, response) {
+  pool.query('SELECT * FROM TIPO_MUNICIPIO', (err, res) => {
     if (err) {
       console.log(err.stack)
     } else {
@@ -14,5 +13,5 @@ function getDepartamentos(request, response) {
 }
 
 module.exports = {
-  getDepartamentos
+    getMunicipios
 }
