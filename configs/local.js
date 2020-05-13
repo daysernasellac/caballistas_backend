@@ -1,14 +1,14 @@
 "use strict";;
 
 let localConfig = {
-    port:  process.env.PORT || 3000,
+    port:  process.env.PORT || 8080,
     hostname: process.env.HOSTNAME || 'localhost',
     database: {
-        user: '',
-        host: '',
-        password: '',
-        database: '',
-        port:''
+        user: 'postgres',
+        host: 'localhost',
+        password: 'elasticheart',
+        database: 'caballistas',
+        port:'5432'
     }
 };
 

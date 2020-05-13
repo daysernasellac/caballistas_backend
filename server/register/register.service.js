@@ -17,6 +17,33 @@ const httpMessages =  {
     }
 };
 
+const text = 'INSERT INTO FROM USUARIO WHERE CORREO = $1 AND CONTRASENA = $2'
+const values = ['karen', 'holi'];
+
+
+// Register new user 
+function registerUser2(request, response) {
+    let {email, password} = request.body;
+
+    console.log(request.body);
+    
+
+    if(!email || !password) {
+        response.json(httpMessages.onValidationError);
+    } else {
+        let newUser = new User({email, password});
+
+        newUser.save()
+            .then(result => {
+                return response.json(httpMessages.onUserSaveSuccess);
+            })
+            .catch(error => {
+                return response.json(httpMessages.onSaveError);
+            });
+    }
+}
+
+
 // Register new user 
 function registerUser(request, response) {
     let {email, password} = request.body;
