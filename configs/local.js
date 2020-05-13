@@ -1,7 +1,7 @@
-'use-strict';
+"use strict";;
 
 let localConfig = {
-    port:  process.env.PORT || 3000,
+    port:  process.env.PORT || 8080,
     hostname: process.env.HOSTNAME || 'localhost',
     database: {
         user: 'postgres',

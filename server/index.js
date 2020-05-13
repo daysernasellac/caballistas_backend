@@ -5,7 +5,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocs = require('../swagger')
+const swaggerDocs = require('../swagger');
+const cors = require('cors')
 
 module.exports = function() {
     let server = express(),
@@ -25,6 +26,7 @@ module.exports = function() {
         server.use(cookieParser());
         server.use(logger('dev'));
         server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+        server.use(cors());
 
         // set up routes
         routes.init(server);
