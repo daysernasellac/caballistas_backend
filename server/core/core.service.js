@@ -15,15 +15,19 @@ function getDepartamentos(request, response) {
 
 // Tomar todos los municipios
 function getMunicipios(request, response) {
-    pool.query('SELECT * FROM TIPO_MUNICIPIO', (err, res) => {
+  let  {tipo_departamento} = request.params,
+        values = [tipo_departamento];
+  const text = 'SELECT * FROM TIPO_MUNICIPIO WHERE TIPO_DEPARTAMENTO = $1';
+  pool.query( text, values, (err, res) => {
       if (err) {
         console.log(err.stack)
       } else {
-        return response.json(res.rows)
+        return response.json(res.rows);
       }
     })
   }
 
+  // Tomar todos los tipos de documentos
   function getTipoDocumentos(request, response) {
     pool.query('SELECT * FROM TIPO_DOCUMENTO', (err, res) => {
       if (err) {

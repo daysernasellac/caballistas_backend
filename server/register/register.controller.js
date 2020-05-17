@@ -2,9 +2,12 @@
 
 const registerService = require('./register.service');
 
-function getRegister(request, response) {
-    response.send({name: "john", lastname: "doe"})
-        .status(200);
+function getInformacionClienteByDocumento(request, response) {
+    return registerService.findUserByDocument(request, response);
+}
+
+function getInformacionClienteByEmail(request, response) {
+    return registerService.findUserByEmail(request, response);
 }
 
 function registerUser(req, res){
@@ -13,6 +16,7 @@ function registerUser(req, res){
 
 
 module.exports = {
-    getRegister,
+    getInformacionClienteByDocumento,
+    getInformacionClienteByEmail,
     registerUser
 }
