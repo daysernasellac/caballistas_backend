@@ -11,7 +11,7 @@ function getInformacionClienteByEmail(request, response) {
 }
 
 function registerUser(req, res){
-    return registerService.registerUser(req, res);
+    return registerService.registerUser2(req, res);
 }
 
 

@@ -1,6 +1,7 @@
 "use strict";;
 const express = require('express');
 const pool = require('../database').getPool();
+const ejemplo = require('../login/login.router')
 
 const httpMessages =  {
     onValidationError: {
@@ -43,30 +44,23 @@ function findUserByEmail(request, response) {
       })
 }
 
-const text = 'INSERT INTO FROM USUARIO WHERE CORREO = $1 AND CONTRASENA = $2'
 const values = ['karen', 'holi'];
 
 
 // Register new user 
 function registerUser2(request, response) {
-    let {nombres, apellidos, tipo_documento, numero_documento, telefono, direccion, correo,} = request.body;
-
-    console.log(request.body);
-    
-
-    if(!email || !password) {
-        response.json(httpMessages.onValidationError);
-    } else {
-        let newUser = new User({email, password});
-
-        newUser.save()
-            .then(result => {
-                return response.json(httpMessages.onUserSaveSuccess);
-            })
-            .catch(error => {
-                return response.json(httpMessages.onSaveError);
-            });
-    }
+    let {id_cliente, tipo_documento, numero_documento, nombres, apellidos, telefono, direccion, id_departamento, id_municipio} = request.body,
+    values = [id_cliente = 'informacion_cliente_id_cliente_seq', tipo_documento, numero_documento, nombres, telefono, direccion, id_departamento, id_municipio, apellidos];
+    const text = 'INSERT INTO INFORMACION_CLIENTE(ID_CLIENTE, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, NOMBRES, TELEFONO, DIRECCION, ID_DEPARTAMENTO, ID_MUNICIPIO, APELLIDOS) VALUES (nextval($1), $2, $3, $4, $5, $6, $7, $8, $9)';
+    pool.query( text, values, (err, res) => {
+        if (err) {
+          console.log(err.stack)
+        } else {
+            let request.separams = { }
+            findUserByDocument(re)
+          return response.json(res.rows);
+        }
+      })
 }
 
 
@@ -93,7 +87,7 @@ function registerUser(request, response) {
 }
 
 module.exports = {
-    registerUser,
+    registerUser2,
     findUserByDocument,
     findUserByEmail
 }
