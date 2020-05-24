@@ -3,7 +3,8 @@
 const registerService = require('./register.service');
 
 function getInformacionClienteByDocumento(request, response) {
-    return registerService.findUserByDocument(request, response);
+    const user = registerService.findUserByDocument(request.params)
+    return response.json(user);
 }
 
 function getInformacionClienteByEmail(request, response) {

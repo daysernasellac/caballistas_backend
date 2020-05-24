@@ -1,6 +1,6 @@
 'use-strict';
 const express = require('express');
-const pool = require('../database').getPool();
+const pool = require('../database')
 
 // Tomar todos los departamentos
 function getDepartamentos(request, response) {

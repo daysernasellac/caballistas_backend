@@ -1,11 +1,8 @@
-'use strict';
-const { Pool } = require('pg');
-const config = require('../configs/index'); 
-
-const getPool = function() {
-    return new Pool(config.database);
-}
-
+const { Pool } = require('pg')
+const config =require('../configs')
+const pool = new Pool(config.database)
 module.exports = {
-    getPool
+    query: (text, params, callback) => {
+        return pool.query(text, params, callback)
+    },
 }

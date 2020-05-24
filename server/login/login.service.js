@@ -1,6 +1,6 @@
 'use-strict';
 const express = require('express');
-const pool = require('../database').getPool();
+const pool = require('../database')
 
 // validar se los datos ingresados existen en la base de datos
 function login(request, response) {
