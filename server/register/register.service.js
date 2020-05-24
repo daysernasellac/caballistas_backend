@@ -20,31 +20,25 @@ const httpMessages = {
 
 function findUserByDocument({ tipo_documento, numero_documento }) {
     let query = 'SELECT * FROM INFORMACION_CLIENTE WHERE TIPO_DOCUMENTO = $1 AND NUMERO_DOCUMENTO = $2';
-    return database.query(query, [tipo_documento, numero_documento]);
+    return database.query(query, [tipo_documento, numero_documento])
+        .then(response => response.rows)
+        .catch(err => { throw new Error(err) });
 }
 
 function findUserByEmail({ correo }) {
     const text = 'SELECT * FROM USUARIO_SISTEMA WHERE CORREO = $1';
 
-    return database.query(text, [correo], (err, res) => {
-        if (err) {
-            console.error(err)
-            throw new Error(err);
-        }
-        return JSON.parse(res.rows);
-    });
+    return database.query(text, [correo])
+        .then(response => response.rows)
+        .catch(err => { throw new Error(err) });
 }
 
 // Register new user 
 function registerUser2(params) {
     let text = 'INSERT INTO INFORMACION_CLIENTE(ID_CLIENTE, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, NOMBRES, TELEFONO, DIRECCION, ID_DEPARTAMENTO, ID_MUNICIPIO, APELLIDOS) VALUES (nextval($1), $2, $3, $4, $5, $6, $7, $8, $9)';
-    database.query(text, params, (err, res) => {
-        if (err) {
-            console.log(err.stack)
-        } else {
-            return response.json(res.rows);
-        }
-    })
+    return database.query(text, params)
+        .then(response => response.rows)
+        .catch(err => { throw new Error(err) });
 }
 
 module.exports = {

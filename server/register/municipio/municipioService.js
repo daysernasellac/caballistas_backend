@@ -2,16 +2,12 @@
 const pool = require('../../../database').getPool();
 
 // get all departaments
-function getMunicipios(request, response) {
-  pool.query('SELECT * FROM TIPO_MUNICIPIO', (err, res) => {
-    if (err) {
-      console.log(err.stack)
-    } else {
-      return response.json(res.rows)
-    }
-  })
+function getMunicipios() {
+  return pool.query('SELECT * FROM TIPO_MUNICIPIO')
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
 }
 
 module.exports = {
-    getMunicipios
+  getMunicipios
 }
