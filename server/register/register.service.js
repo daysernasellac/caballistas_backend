@@ -56,8 +56,6 @@ function registerUser2(request, response) {
         if (err) {
           console.log(err.stack)
         } else {
-            let request.separams = { }
-            findUserByDocument(re)
           return response.json(res.rows);
         }
       })
