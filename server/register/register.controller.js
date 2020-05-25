@@ -10,17 +10,14 @@ function getInformacionClienteByDocumento(request, response) {
 }
 
 function getInformacionClienteByEmail(request, response) {
-    registerService.findUserByEmail(request, response)
+    registerService.findUserByEmail(request.params)
         .then(cliente => {
             response.json(cliente);
         });
 }
 
 function registerUser(req, res){
-    registerService.registerUser2(req, res)
-        .then(usuario => {
-            response.json(usuario);
-        });
+    return registerService.registerUser2(req.body);
 }
 
 
