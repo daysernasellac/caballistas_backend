@@ -1,16 +1,15 @@
 "use strict";
 
-const { createTransport, sendEmail, createMailTemplate } = require('./verificar-email.service');
+const { sendEmail } = require('./verificar-email.service');
 
-
-const CONSTANTS = {
-    EMAIL: {
-        FROM: 'alexius900@gmail.com',
-        SUBJECT: 'Confirmación email',
-        TEXT: 'texto de ejemplo'
-    }
-}
-
+/**
+ * Metodo que permite enviar un mail para la validacion del correo electronico 
+ * del usuario
+ * 
+ * acepta como parametros opcionales el from, subject y text
+ * @param {Request} request 
+ * @param {Response} response 
+ */
 function verificarEmail(request, response) {
     const emailParams = {
         to: request.body.correo
