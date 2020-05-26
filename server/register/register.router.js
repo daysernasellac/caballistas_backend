@@ -6,5 +6,6 @@ let router = express.Router();
 router.get('/informacionCliente/:tipo_documento&:numero_documento', registerController.getInformacionClienteByDocumento);
 router.get('/informacionCliente/correo/:correo', registerController.getInformacionClienteByEmail);
 router.post('/', registerController.registerUser);
+router.post('/finalizarRegistro', registerController.finalizarRegistro);
 
 module.exports = router;

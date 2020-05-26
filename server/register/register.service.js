@@ -1,93 +1,82 @@
 "use strict";;
-const express = require('express');
-const pool = require('../database').getPool();
-const ejemplo = require('../login/login.router')
+const database = require('../database');
+const Cliente = require('../models/Cliente');
+const UsuarioSistema = require('../models/UsuarioSistema')
+const _ = require('lodash');
 
-const httpMessages =  {
-    onValidationError: {
-        success: false,
-        message: 'Please enter email and password',
-    },
-    onSaveError: {
-        success:false,
-        message: 'The email address already exist',
-    },
-    onUserSaveSuccess: {
-        success: true,
-        message: 'Successfully created new user',
-    }
-};
-
-function findUserByDocument(request, response) {
-    let  {tipo_documento, numero_documento} = request.params,
-    values = [tipo_documento, numero_documento];
-    const text = 'SELECT * FROM INFORMACION_CLIENTE WHERE TIPO_DOCUMENTO = $1 AND NUMERO_DOCUMENTO = $2';
-    pool.query( text, values, (err, res) => {
-        if (err) {
-          console.log(err.stack)
-        } else {
-          return response.json(res.rows);
-        }
-      })
+function findUserByDocument({ tipo_documento, numero_documento }) {
+  let query = 'SELECT * FROM INFORMACION_CLIENTE WHERE TIPO_DOCUMENTO = $1 AND NUMERO_DOCUMENTO = $2';
+  return database.query(query, [tipo_documento, numero_documento])
+    .then(response => response.rows[0])
+    .catch(err => { throw new Error(err) });
 }
 
-function findUserByEmail(request, response) {
-    let  {correo} = request.params,
-    values = [correo];
-    const text = 'SELECT * FROM USUARIO_SISTEMA WHERE CORREO = $1';
-    pool.query( text, values, (err, res) => {
-        if (err) {
-          console.log(err.stack)
-        } else {
-          return response.json(res.rows);
-        }
-      })
+function findUserByEmail({ correo }) {
+  const text = 'SELECT * FROM USUARIO_SISTEMA WHERE CORREO = $1';
+
+  return database.query(text, [correo])
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
 }
-
-const values = ['karen', 'holi'];
-
 
 // Register new user 
-function registerUser2(request, response) {
-    let {id_cliente, tipo_documento, numero_documento, nombres, apellidos, telefono, direccion, id_departamento, id_municipio} = request.body,
-    values = [id_cliente = 'informacion_cliente_id_cliente_seq', tipo_documento, numero_documento, nombres, telefono, direccion, id_departamento, id_municipio, apellidos];
-    const text = 'INSERT INTO INFORMACION_CLIENTE(ID_CLIENTE, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, NOMBRES, TELEFONO, DIRECCION, ID_DEPARTAMENTO, ID_MUNICIPIO, APELLIDOS) VALUES (nextval($1), $2, $3, $4, $5, $6, $7, $8, $9)';
-    pool.query( text, values, (err, res) => {
-        if (err) {
-          console.log(err.stack)
-        } else {
-            let request.separams = { }
-            findUserByDocument(re)
-          return response.json(res.rows);
-        }
-      })
+async function registerInformacionCliente(params) {
+  let text = 'INSERT INTO INFORMACION_CLIENTE(ID_CLIENTE, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, NOMBRES, TELEFONO, DIRECCION, ID_DEPARTAMENTO, ID_MUNICIPIO, APELLIDOS) VALUES (nextval($1), $2, $3, $4, $5, $6, $7, $8, $9)';
+  let cliente = new Cliente(params.user);
+  let arrayCliente = cliente.toArray();
+
+  arrayCliente[0] = 'informacion_cliente_id_cliente_seq';
+
+  return database.query(text, arrayCliente)
+    .then(async (response) => {
+      let res = await findUserByDocument({
+        tipo_documento: params.user.tipo_documento,
+        numero_documento: params.user.numero_documento
+      });
+      return _.merge(response, res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
+async function registerUser(params) {
+  let informacionCliente = await registerInformacionCliente(params);
 
-// Register new user 
-function registerUser(request, response) {
-    let {email, password} = request.body;
-
-    console.log(request.body);
-    
-
-    if(!email || !password) {
-        response.json(httpMessages.onValidationError);
-    } else {
-        let newUser = new User({email, password});
-
-        newUser.save()
-            .then(result => {
-                return response.json(httpMessages.onUserSaveSuccess);
-            })
-            .catch(error => {
-                return response.json(httpMessages.onSaveError);
-            });
-    }
+  let text = 'INSERT INTO USUARIO_SISTEMA (ID_USUARIO, TIPO_USUARIO, CLIENTE, CORREO, CONTRASENA, TIPO_ESTADO) VALUES(nextval($1), $2, $3, $4, $5, $6)';
+  let usuario = new UsuarioSistema(params.user).toArray();
+  let parametrosConsulta = [
+    'usuario_id_usuario_seq',
+    3,
+    informacionCliente.id_cliente,
+    usuario[3],
+    '',
+    3
+  ];
+  return database.query(text, parametrosConsulta)
+    .then(async (response) => {
+      console.log(response.rows)
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
+async function updateUsuarioSistema(params) {
+  let text = 'UPDATE USUARIO_SISTEMA SET  CONTRASENA= $2, TIPO_ESTADO= $3 WHERE CORREO= $1';
+  let {correo, contrasena, tipo_estado} = params.inf,
+  values = [correo, contrasena, tipo_estado = 1]
+  return database.query(text, values)
+    .then(async (response) => {
+      console.log(response.rows)
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
 module.exports = {
-    registerUser2,
-    findUserByDocument,
-    findUserByEmail
+  registerUser,
+  findUserByDocument,
+  findUserByEmail,
+  updateUsuarioSistema
 }

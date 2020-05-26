@@ -1,6 +1,7 @@
 'use-strict';
 const express = require('express');
-const pool = require('../database').getPool();
+const pool = require('../database')
+const Usuario = require('../models/UsuarioSistema');
 
 // Tomar todos los departamentos
 function getDepartamentos(request, response) {
@@ -38,6 +39,9 @@ function getMunicipios(request, response) {
     })
   }
 
+
+  // Code develop here must need to be removed in futures versions :D
+  
 module.exports = {
   getDepartamentos,
   getMunicipios,
