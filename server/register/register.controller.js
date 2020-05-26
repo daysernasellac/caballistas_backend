@@ -17,12 +17,17 @@ function getInformacionClienteByEmail(request, response) {
 }
 
 function registerUser(req, res){
-    return registerService.registerUser2(req.body);
+    return registerService.registerUser(req.body);
+}
+
+function finalizarRegistro(req, res){
+    return registerService.updateUsuarioSistema(req.body);
 }
 
 
 module.exports = {
     getInformacionClienteByDocumento,
     getInformacionClienteByEmail,
-    registerUser
+    registerUser,
+    finalizarRegistro
 }

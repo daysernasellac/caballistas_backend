@@ -1,22 +1,19 @@
 'use-strict';
 const express = require('express');
-const pool = require('../database')
+const database = require('../database')
 
 // validar se los datos ingresados existen en la base de datos
-function login(request, response) {
-  let  {correo, contrasena} = request.body,
-        values = [correo, contrasena];
-  const text = 'SELECT * FROM USUARIO WHERE CORREO = $1 AND CONTRASENA = $2';
-  pool.query( text, values, (err, res) => {
-    if (err) {
-      console.log(err.stack);
-    } else {
-      return response.json(res.rows)
-    }
-  })
+function login(params) {
+  let query = 'SELECT * FROM USUARIO_SISTEMA WHERE CORREO = $1 AND CONTRASENA = $2';
+  let {correo, contrasena} = params.datos,
+  values = [correo, contrasena]
+  return database.query(query, values)
+    .then(response => {
+      return response.rows[0];
+    })
+    .catch(err => { console.log("errorr: " + err) });
 }
 
 module.exports = {
-  login
-
+  login,
 }
