@@ -6,21 +6,21 @@ let localConfig = {
     database: {
         user: 'postgres',
         host: 'localhost',
-        password: '123456789',
-        database: 'postgres',
+        password: 'elasticheart',
+        database: 'caballistas',
         port:'5432'
     },
     email: {
-        host: "smtp.mailgun.org",
-        port: 587,
+        host: "smtp.mailtrap.io",
+        port: 465,
         secure: false, 
         auth: {
-            user: 'postmaster@sandbox22df14c29e7340aea1f104210e2e3252.mailgun.org',
-            pass: 'fd1baa4c28a8c4cb9ca6a260e1a82dd0-7fba8a4e-2547003d'
+            user: '0d3bc85d08a064',
+            pass: '64728e1bd3455b'
         }
     },
     emailDefaultCredentials: {
-        emailFrom: 'alexius9000@gmail.com',
+        emailFrom: 'karenchiquito.serna@gmail.com',
         subject: 'Confirmación de email'
     }
 };

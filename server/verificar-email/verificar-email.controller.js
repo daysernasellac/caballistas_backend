@@ -12,7 +12,8 @@ const { sendEmail } = require('./verificar-email.service');
  */
 function verificarEmail(request, response) {
     const emailParams = {
-        to: request.body.correo
+        to: request.body.correo,
+        text: `<a href="http://localhost:3000/pass/${request.body.correo}">Confirmar correo</a>`
     };
 
     sendEmail(emailParams)

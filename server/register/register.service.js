@@ -11,6 +11,13 @@ function findUserByDocument({ tipo_documento, numero_documento }) {
     .catch(err => { throw new Error(err) });
 }
 
+function findUserById({ id_cliente }) {
+  let query = 'SELECT * FROM INFORMACION_CLIENTE WHERE ID_CLIENTE = $1';
+  return database.query(query, [id_cliente])
+    .then(response => response.rows[0])
+    .catch(err => { throw new Error(err) });
+}
+
 function findUserByEmail({ correo }) {
   const text = 'SELECT * FROM USUARIO_SISTEMA WHERE CORREO = $1';
 
@@ -55,7 +62,7 @@ async function registerUser(params) {
   ];
   return database.query(text, parametrosConsulta)
     .then(async (response) => {
-      console.log(response.rows)
+     response.rows;
     })
     .catch(err => {
       console.log(err);
@@ -68,7 +75,7 @@ async function updateUsuarioSistema(params) {
   values = [correo, contrasena, tipo_estado = 1]
   return database.query(text, values)
     .then(async (response) => {
-      console.log(response.rows)
+      response.rows;
     })
     .catch(err => {
       console.log(err);
@@ -78,5 +85,6 @@ module.exports = {
   registerUser,
   findUserByDocument,
   findUserByEmail,
-  updateUsuarioSistema
+  updateUsuarioSistema,
+  findUserById
 }
