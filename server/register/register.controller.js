@@ -22,21 +22,36 @@ function getInformacionClienteByEmail(request, response) {
         });
 }
 
-function registerUser(req, res){
+function registerUser(req, res) {
     return registerService.registerUser(req.body)
         .then(resultado => res.status(200).send(resultado));
 }
 
-function finalizarRegistro(req, res){
+function finalizarRegistro(req, res) {
     return registerService.updateUsuarioSistema(req.body)
         .then(resultado => res.status(200).send(resultado));
 }
 
+function getInfoUsuario(request, response) {
+    return registerService.findUserById()
+        .then(usuario => {
+            return response.json(usuario);
+        });
+}
+
+function deleteInfo(request, response) {
+    return registerService.deleteUserById(request.params)
+        .then(usuario => {
+            return response.json(usuario);
+        });
+}
 
 module.exports = {
     getInformacionClienteByDocumento,
     getInformacionClienteByEmail,
     registerUser,
     finalizarRegistro,
-    getUsuarioById
+    getUsuarioById,
+    getInfoUsuario,
+    deleteInfo
 }

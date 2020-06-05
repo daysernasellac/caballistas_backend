@@ -81,10 +81,33 @@ async function updateUsuarioSistema(params) {
       console.log(err);
     });
 }
+
+function findUserById() {
+  let query = 'SELECT IC.ID_CLIENTE, IC.NUMERO_DOCUMENTO, IC.NOMBRES, IC.APELLIDOS, US.CORREO FROM INFORMACION_CLIENTE IC INNER JOIN USUARIO_SISTEMA US ON IC.ID_CLIENTE = US.CLIENTE';
+  return database.query(query)
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
+}
+
+async function deleteUsuarioById({ id_cliente }) {
+  let query = 'DELETE FROM USUARIO_SISTEMA WHERE CLIENTE = $1';
+  return database.query(query, [id_cliente])
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
+}
+
+async function deleteUserById({ id_cliente }) {
+  let query = 'DELETE FROM INFORMACION_CLIENTE WHERE ID_CLIENTE = $1';
+  return database.query(query, [id_cliente])
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
+}
+
 module.exports = {
   registerUser,
   findUserByDocument,
   findUserByEmail,
   updateUsuarioSistema,
-  findUserById
+  findUserById,
+  deleteUserById
 }
