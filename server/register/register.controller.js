@@ -33,7 +33,7 @@ function finalizarRegistro(req, res) {
 }
 
 function getInfoUsuario(request, response) {
-    return registerService.findUserById()
+    return registerService.findUsers()
         .then(usuario => {
             return response.json(usuario);
         });
@@ -46,6 +46,13 @@ function deleteInfo(request, response) {
         });
 }
 
+function updateInfoUser(request, response) {
+    return registerService.updateUsuarioSistemaByCliente(request.body)
+        .then(usuario => {
+            return response.json(usuario);
+        });
+}
+
 module.exports = {
     getInformacionClienteByDocumento,
     getInformacionClienteByEmail,
@@ -53,5 +60,6 @@ module.exports = {
     finalizarRegistro,
     getUsuarioById,
     getInfoUsuario,
-    deleteInfo
+    deleteInfo,
+    updateInfoUser
 }
