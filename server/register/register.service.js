@@ -89,17 +89,10 @@ function findUsers() {
     .catch(err => { throw new Error(err) });
 }
 
-async function deleteUsuarioById({ id_cliente }) {
-  let query = 'DELETE FROM USUARIO_SISTEMA WHERE CLIENTE = $1';
-  return database.query(query, [id_cliente])
-    .then(response => response.rows)
-    .catch(err => { throw new Error(err) });
-}
-
-async function deleteUserById({ id_cliente }) {
-  let informacionCliente = await deleteUsuarioById({ id_cliente });
-  let query = 'DELETE FROM INFORMACION_CLIENTE WHERE ID_CLIENTE = $1';
-  return database.query(query, [id_cliente])
+async function deleteUserById({ cliente }) {
+  let tipo_estado = 2;
+  let query = 'UPDATE USUARIO_SISTEMA SET TIPO_ESTADO = $2 WHERE CLIENTE = $1';
+  return database.query(query, [cliente, tipo_estado])
     .then(response => response.rows)
     .catch(err => { throw new Error(err) });
 }
