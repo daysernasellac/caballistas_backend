@@ -9,7 +9,7 @@ router.post('/', registerController.registerUser);
 router.post('/finalizarRegistro', registerController.finalizarRegistro);
 router.get('/informacionClienteById/:id_cliente', registerController.getUsuarioById);
 router.get('/findInfoUsuarioById', registerController.getInfoUsuario);
-router.post('/deleteUsuarioById/:id_cliente', registerController.deleteInfo);
+router.post('/deleteUsuarioById/:cliente', registerController.deleteInfo);
 router.post('/updateUser', registerController.updateInfoUser);
 
 module.exports = router;
