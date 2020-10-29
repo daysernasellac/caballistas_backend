@@ -13,7 +13,7 @@ const { sendEmail } = require('./verificar-email.service');
 function verificarEmail(request, response) {
     const emailParams = {
         to: request.body.correo,
-        text: `<a href="http://localhost:3000/pass">Confirmar correo</a>`
+        text: `<a href="http://localhost:8030/pass">Confirmar correo</a>`
     };
 
     sendEmail(emailParams)
@@ -29,7 +29,7 @@ function verificarEmail(request, response) {
 function envioPassword(request, response) {
     const emailParams = {
         to: request.body.correo,
-        text: `<a href="http://localhost:3000/pass"> Ingresa al siguiente link para restablecer una nueva contraseña</a>`
+        text: `<a href="http://localhost:8030/pass"> Ingresa al siguiente link para restablecer una nueva contraseña</a>`
     };
 
     sendEmail(emailParams)
