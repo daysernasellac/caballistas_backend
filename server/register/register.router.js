@@ -4,12 +4,12 @@ const registerController = require('./register.controller');
 let router = express.Router();
 
 router.get('/', registerController.registerUser);
-// router.get('/informacionCliente/:tipo_documento&:numero_documento', registerController.getInformacionClienteByDocumento);
-// router.get('/informacionCliente/correo/:correo', registerController.getInformacionClienteByEmail);
-// router.post('/finalizarRegistro', registerController.finalizarRegistro);
-// router.get('/informacionClienteById/:id_cliente', registerController.getUsuarioById);
-// router.get('/findInfoUsuarioById', registerController.getInfoUsuario);
-// router.post('/deleteUsuarioById/:cliente', registerController.deleteInfo);
-// router.post('/updateUser', registerController.updateInfoUser);
+router.get('/informacionCliente/:tipo_documento&:numero_documento', registerController.getInformacionClienteByDocumento);
+router.get('/informacionCliente/correo/:correo', registerController.getInformacionClienteByEmail);
+router.post('/finalizarRegistro', registerController.finalizarRegistro);
+router.get('/informacionClienteById/:id_cliente', registerController.getUsuarioById);
+router.get('/findInfoUsuarioById', registerController.getInfoUsuario);
+router.post('/deleteUsuarioById/:cliente', registerController.deleteInfo);
+router.post('/updateUser', registerController.updateInfoUser);
 
 module.exports = router;
