@@ -9,7 +9,7 @@ const emailVerification = require('../verificar-email/verificar-email.router');
 const pagosRouter = require('../pagos/pagos.router');
 const planesSuscripcionRouter = require('../planes-suscripcion/planes-suscripcion.router');
 
-router.use('/usuario', registerRouter);
+router.use('/register', registerRouter);
 router.use('/core', coreRouter);
 router.use('/login', loginRouter);
 router.use('/email', emailVerification);
