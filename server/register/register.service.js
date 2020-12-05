@@ -11,6 +11,13 @@ function findUserByDocument({ tipo_documento, numero_documento }) {
     .catch(err => { throw new Error(err) });
 }
 
+function findUserById({ id_cliente }) {
+  let query = 'SELECT * FROM INFORMACION_CLIENTE WHERE ID_CLIENTE = $1';
+  return database.query(query, [id_cliente])
+    .then(response => response.rows[0])
+    .catch(err => { throw new Error(err) });
+}
+
 function findUserByEmail({ correo }) {
   const text = 'SELECT * FROM USUARIO_SISTEMA WHERE CORREO = $1';
 
@@ -55,7 +62,7 @@ async function registerUser(params) {
   ];
   return database.query(text, parametrosConsulta)
     .then(async (response) => {
-      console.log(response.rows)
+     response.rows;
     })
     .catch(err => {
       console.log(err);
@@ -68,15 +75,52 @@ async function updateUsuarioSistema(params) {
   values = [correo, contrasena, tipo_estado = 1]
   return database.query(text, values)
     .then(async (response) => {
-      console.log(response.rows)
+      response.rows;
     })
     .catch(err => {
       console.log(err);
     });
 }
+
+function findUsers() {
+  let query = 'SELECT IC.ID_CLIENTE, IC.NUMERO_DOCUMENTO, IC.NOMBRES, IC.APELLIDOS, US.CORREO FROM INFORMACION_CLIENTE IC INNER JOIN USUARIO_SISTEMA US ON IC.ID_CLIENTE = US.CLIENTE';
+  return database.query(query)
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
+}
+
+async function deleteUserById({ cliente }) {
+  let tipo_estado = 2;
+  let query = 'UPDATE USUARIO_SISTEMA SET TIPO_ESTADO = $2 WHERE CLIENTE = $1';
+  return database.query(query, [cliente, tipo_estado])
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
+}
+
+async function updateInformacionClienteById({ id_cliente, numero_documento, nombres, apellidos }) {
+  let query = 'UPDATE INFORMACION_CLIENTE SET NUMERO_DOCUMENTO = $2, NOMBRES = $3, APELLIDOS = $4 WHERE ID_CLIENTE = $1';
+  return database.query(query, [ id_cliente, numero_documento, nombres, apellidos ])
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
+}
+
+async function updateUsuarioSistemaByCliente(params) {
+  let {id_cliente, numero_documento, nombres, apellidos, correo} = params;
+  let informacionCliente = await updateInformacionClienteById({ id_cliente, numero_documento, nombres, apellidos });
+  let query = 'UPDATE USUARIO_SISTEMA SET CORREO = $2 WHERE CLIENTE = $1';
+
+  return database.query(query, [ id_cliente, correo ])
+    .then(response => response.rows)
+    .catch(err => { throw new Error(err) });
+}
+
 module.exports = {
   registerUser,
   findUserByDocument,
   findUserByEmail,
-  updateUsuarioSistema
+  updateUsuarioSistema,
+  findUserById,
+  deleteUserById,
+  findUsers,
+  updateUsuarioSistemaByCliente
 }

@@ -12,7 +12,24 @@ const { sendEmail } = require('./verificar-email.service');
  */
 function verificarEmail(request, response) {
     const emailParams = {
-        to: request.body.correo
+        to: request.body.correo,
+        text: `<a href="http://localhost:8030/pass">Confirmar correo</a>`
+    };
+
+    sendEmail(emailParams)
+        .then(res => {
+            response.status(200).send(res);
+        })
+        .catch(err => {
+            console.error(err);
+            response.status(500).send('Something broke!', err);
+        });
+}
+
+function envioPassword(request, response) {
+    const emailParams = {
+        to: request.body.correo,
+        text: `<a href="http://localhost:8030/pass"> Ingresa al siguiente link para restablecer una nueva contraseña</a>`
     };
 
     sendEmail(emailParams)
@@ -26,5 +43,6 @@ function verificarEmail(request, response) {
 }
 
 module.exports = {
-    verificarEmail
+    verificarEmail,
+    envioPassword
 }

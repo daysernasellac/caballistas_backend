@@ -8,6 +8,12 @@ function getInformacionClienteByDocumento(request, response) {
             return response.json(usuario);
         });
 }
+function getUsuarioById(request, response) {
+    return registerService.findUserById(request.params)
+        .then(usuario => {
+            return response.json(usuario);
+        });
+}
 
 function getInformacionClienteByEmail(request, response) {
     registerService.findUserByEmail(request.params)
@@ -16,18 +22,47 @@ function getInformacionClienteByEmail(request, response) {
         });
 }
 
-function registerUser(req, res){
-    return registerService.registerUser(req.body);
+function registerUser(req, res) {
+    res.status(200).send({
+        msg: 'una mondqa'
+    });
+    // return registerService.registerUser(req.body)
+    //     .then(resultado => res.status(200).send(resultado));
 }
 
-function finalizarRegistro(req, res){
-    return registerService.updateUsuarioSistema(req.body);
+function finalizarRegistro(req, res) {
+    return registerService.updateUsuarioSistema(req.body)
+        .then(resultado => res.status(200).send(resultado));
 }
 
+function getInfoUsuario(request, response) {
+    return registerService.findUsers()
+        .then(usuario => {
+            return response.json(usuario);
+        });
+}
+
+function deleteInfo(request, response) {
+    return registerService.deleteUserById(request.params)
+        .then(usuario => {
+            return response.json(usuario);
+        });
+}
+
+function updateInfoUser(request, response) {
+    return registerService.updateUsuarioSistemaByCliente(request.body)
+        .then(usuario => {
+            return response.json(usuario);
+        });
+}
 
 module.exports = {
     getInformacionClienteByDocumento,
     getInformacionClienteByEmail,
     registerUser,
-    finalizarRegistro
+    finalizarRegistro,
+    getUsuarioById,
+    getInfoUsuario,
+    deleteInfo,
+    updateInfoUser
 }

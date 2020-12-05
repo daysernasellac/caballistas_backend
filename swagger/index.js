@@ -1,6 +1,9 @@
 "use strict";;
 const user = require('./user.swagger');
 
+const config = require('../configs/index');
+const urlApi = `http://${config.hostname}:${config.port}/api`;
+
 const swaggerDocument = {
     openapi: '3.0.1',
     info: {
@@ -19,8 +22,8 @@ const swaggerDocument = {
     },
     servers: [
         {
-            url: 'http://localhost:3000/api/v1',
-            description: 'local server'
+            url: urlApi,
+            description: 'Caballistas API'
         }
     ],
     components: {
@@ -38,7 +41,39 @@ const swaggerDocument = {
     },
     paths: {
         '/api/v1/register': {
-            "post": user
+            "post": user,
+        },
+        '/core/departamentos':{
+            "get": {
+                tags: ['user'],
+                description: 'Departamentos',
+                operationId: 'GetDepartamentos',
+                security: [{
+                    bearerAuth: []
+                }],
+                responses: {
+                    "200" : {
+                        description: "Obtiene la lista de departamentos",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "array",
+                                    items: {
+                                        id_departamento: {
+                                            type: "integer",
+                                            description: "Identificador único del departamento"
+                                        },
+                                        nombre_departamento: {
+                                            type: "string",
+                                            description: "Nombre del departamento"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
