@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('../swagger');
+const cors = require("cors");
 
 module.exports = function() {
     let server = express(),
