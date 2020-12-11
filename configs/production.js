@@ -15,12 +15,12 @@ let localConfig = {
         port: 465,
         secure: false, 
         auth: {
-            user: '0d3bc85d08a064',
-            pass: '64728e1bd3455b'
+            user: '8004a2b4a07202',
+            pass: '7bebe60121ac54'
         }
     },
     emailDefaultCredentials: {
-        emailFrom: 'karenchiquito.serna@gmail.com',
+        emailFrom: 'caballistas@gmail.com',
         subject: 'Confirmación de email'
     }
 };
