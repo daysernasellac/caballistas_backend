@@ -13,7 +13,7 @@ const { sendEmail } = require('./verificar-email.service');
 function verificarEmail(request, response) {
     const emailParams = {
         to: request.body.correo,
-        text: `<a href="https://caballistasfrontend.herokuapp.com/pass">Confirmar correo</a>`
+        text: `<a href="http://localhost:8030/pass">Confirmar correo</a>`
     };
 
     sendEmail(emailParams)
