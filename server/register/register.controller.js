@@ -23,11 +23,8 @@ function getInformacionClienteByEmail(request, response) {
 }
 
 function registerUser(req, res) {
-    res.status(200).send({
-        msg: 'una mondqa'
-    });
-    // return registerService.registerUser(req.body)
-    //     .then(resultado => res.status(200).send(resultado));
+    return registerService.registerUser(req.body)
+        .then(resultado => res.status(200).send(resultado));
 }
 
 function finalizarRegistro(req, res) {
