@@ -24,7 +24,10 @@ function getInformacionClienteByEmail(request, response) {
 
 function registerUser(req, res) {
     return registerService.registerUser(req.body)
-        .then(resultado => res.status(200).send(resultado));
+        .then(resultado => res.status(200).send(resultado))
+        .catch(err => {
+            res.status(404).send(err);
+        })
 }
 
 function finalizarRegistro(req, res) {
