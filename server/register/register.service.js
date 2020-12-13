@@ -54,7 +54,7 @@ async function registerUser(params) {
   let usuario = new UsuarioSistema(params.user).toArray();
   let parametrosConsulta = [
     'usuario_id_usuario_seq',
-    3,
+    2,
     informacionCliente.id_cliente,
     usuario[3],
     '',
