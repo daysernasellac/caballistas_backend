@@ -4,10 +4,10 @@ let localConfig = {
     port:  process.env.PORT || 8080,
     hostname: process.env.HOSTNAME || 'localhost',
     database: {
-        user: 'postgres',
-        host: 'localhost',
-        password: 'elasticheart',
-        database: 'caballistas',
+        user: 'wzclubdctmkhvw',
+        host: 'ec2-34-200-106-49.compute-1.amazonaws.com',
+        password: '9d22201b0f7fec11eaa65a3f3b2c3e932791cbb6729cfe9dd46a8e536d52e966',
+        database: 'd67ht2ohqh5esu',
         port:'5432'
     },
     email: {
