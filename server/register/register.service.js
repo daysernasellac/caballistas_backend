@@ -53,7 +53,7 @@ async function registerUser(params) {
   let text = 'INSERT INTO USUARIO_SISTEMA (ID_USUARIO, TIPO_USUARIO, CLIENTE, CORREO, CONTRASENA, TIPO_ESTADO) VALUES(nextval($1), $2, $3, $4, $5, $6)';
   let usuario = new UsuarioSistema(params.user).toArray();
   let parametrosConsulta = [
-    'usuario_id_usuario_seq',
+    'usuario_sistema_id_usuario_seq',
     2,
     informacionCliente.id_cliente,
     usuario[3],
