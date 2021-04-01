@@ -2,9 +2,17 @@
 
 const coreService = require('./login.service');
 
-function login(req, res) {
-    return coreService.login(req.body)
-        .then(function (response) { res.status(200).send(response) });
+async function login(req, res) {
+    let response;
+    
+    try {
+        response = await coreService.login(req.body);
+    } catch (error) {
+        console.error(error);
+        return;
+    }
+
+    return response;
 }
 
 module.exports = {
